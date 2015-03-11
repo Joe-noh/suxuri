@@ -8,12 +8,21 @@ defmodule Suxuri.HTTP do
 
   @base_url "https://suzuri.jp/api/v1"
 
-  # TODO: alignment :P
-  def get(path), do: H.get(full(path), headers)
-  def get(path, params), do: H.get(full(path), headers, params: params)
-  def post(path, params), do: H.post(full(path), JSX.encode!(params), headers)
-  def put(path, params), do: H.put(full(path), JSX.encode!(params), headers)
-  def delete(path, params), do: H.delete(full(path), JSX.encode!(params), headers)
+  def get(path, params \\ []) do
+    full(path) |> H.get!(headers, params: params) |> process_response
+  end
+
+  def post(path, params) do
+    full(path) |> H.post!(JSX.encode!(params), headers) |> process_response
+  end
+
+  def put(path, params) do
+    full(path) |> H.put!(JSX.encode!(params), headers) |> process_response
+  end
+
+  def delete(path, params) do
+    full(path) |> H.delete!(JSX.encode!(params), headers) |> process_response
+  end
 
   defp headers do
     %{
@@ -24,4 +33,21 @@ defmodule Suxuri.HTTP do
 
   defp full("/" <> path), do: @base_url <> "/" <> path
   defp full(       path), do: @base_url <> "/" <> path
+
+  @doc false
+  @spec process_response(%HTTPoison.Response{}) :: {:ok, map} | {:error, term}
+  defp process_response(%H.Response{status_code: 200, body: body}) do
+    JSX.decode(body)
+  end
+
+  defp process_response(%H.Response{status_code: 204}) do
+    {:ok, ""}
+  end
+
+  defp process_response(%H.Response{status_code: code, body: body}) do
+    raise RuntimeError, message: """
+    code: #{code}
+    body: #{body}
+    """
+  end
 end
