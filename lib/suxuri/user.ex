@@ -7,8 +7,6 @@ defmodule Suxuri.User do
     def new(%{"url" => url, "body" => body, "headerUrl" => header_url}) do
       %__MODULE__{url: url, body: body, header_url: header_url}
     end
-
-    def new(nil), do: nil
   end
 
   defstruct [:id, :name, :display_name, :avatar_url, :profile]
@@ -17,6 +15,12 @@ defmodule Suxuri.User do
             "avatarUrl" => avatar_url, "profile" => profile}) do
     %__MODULE__{id: id, name: name, display_name: display_name,
                 avatar_url: avatar_url, profile: Profile.new(profile)}
+  end
+
+  def new(%{"id" => id, "name" => name, "displayName" => display_name,
+            "avatarUrl" => avatar_url}) do
+    %__MODULE__{id: id, name: name, display_name: display_name,
+                avatar_url: avatar_url, profile: nil}
   end
 
   def get(user_id) do
