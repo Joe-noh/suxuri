@@ -42,6 +42,11 @@ defmodule Suxuri.Item do
                 variants: Variant.from_list(variants)}
   end
 
+  def new(%{"id" => id, "name" => name, "angles" => angles,
+            "humanizeName" => humanize_name}) do
+    %__MODULE__{id: id, name: name, angles: angles, humanize_name: humanize_name}
+  end
+
   def from_list(items) when is_list(items) do
     from_list(items, [])
   end
