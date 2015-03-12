@@ -18,11 +18,11 @@ defmodule Suxuri.Item do
       end
     end
 
-    defstruct [:id, :price, :exemplary, :color, :size]
+    defstruct [:id, :price, :exemplary, :color, :size, :enabled]
 
     def new(%{"id" => id, "price" => price, "exemplary" => exemplary,
-              "color" => color, "size" => size}) do
-      %__MODULE__{id: id, price: price, exemplary: exemplary,
+              "enabled" => enabled,  "color" => color, "size" => size}) do
+      %__MODULE__{id: id, price: price, exemplary: exemplary, enabled: enabled,
                   color: Color.new(color), size: Size.new(size)}
     end
 
