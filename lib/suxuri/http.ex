@@ -20,8 +20,8 @@ defmodule Suxuri.HTTP do
     full(path) |> H.put!(JSX.encode!(params), headers) |> process_response!
   end
 
-  def delete!(path, params \\ []) do
-    full(path) |> H.delete!(JSX.encode!(params), headers) |> process_response!
+  def delete!(path) do
+    full(path) |> H.delete!(headers) |> process_response!
   end
 
   defp headers do
