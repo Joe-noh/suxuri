@@ -7,13 +7,15 @@ defmodule Suxuri.User do
     def new(%{"url" => url, "body" => body, "headerUrl" => header_url}) do
       %__MODULE__{url: url, body: body, header_url: header_url}
     end
+
+    def new(_), do: nil
   end
 
   defstruct [:id, :name, :display_name, :avatar_url, :profile]
 
   def new(user = %{"id" => id, "name" => name, "displayName" => display_name,
             "avatarUrl" => avatar_url}) do
-    profile = Map.get(user, "profile", [])
+    profile = Map.get(user, "profile")
     %__MODULE__{id: id, name: name, display_name: display_name,
                 avatar_url: avatar_url, profile: Profile.new(profile)}
   end
