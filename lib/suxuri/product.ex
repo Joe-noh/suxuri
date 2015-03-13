@@ -1,6 +1,7 @@
 defmodule Suxuri.Product do
   alias Suxuri.HTTP
   alias Suxuri.Item
+  alias Suxuri.Favorite
   alias Suxuri.Material
 
   defstruct [
@@ -39,6 +40,16 @@ defmodule Suxuri.Product do
 
   def list(params \\ []) do
     HTTP.get!("/products", params) |> Map.get("products") |> from_list
+  end
+
+  def favorite(product_id) when is_integer(product_id) do
+    HTTP.post!("/products/#{product_id}/favorites", %{})
+    |> Map.get("favorite")
+    |> Favorite.new
+  end
+
+  def favorite(%__MODULE__{} = product) do
+    favorite(product.id)
   end
 
   defp new_product(%{"product" => product}), do: new(product)
