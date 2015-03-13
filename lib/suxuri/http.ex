@@ -12,15 +12,15 @@ defmodule Suxuri.HTTP do
     full(path) |> H.get!(headers, params: params) |> process_response!
   end
 
-  def post!(path, params) do
+  def post!(path, params \\ []) do
     full(path) |> H.post!(JSX.encode!(params), headers) |> process_response!
   end
 
-  def put!(path, params) do
+  def put!(path, params \\ []) do
     full(path) |> H.put!(JSX.encode!(params), headers) |> process_response!
   end
 
-  def delete!(path, params) do
+  def delete!(path, params \\ []) do
     full(path) |> H.delete!(JSX.encode!(params), headers) |> process_response!
   end
 
