@@ -11,16 +11,11 @@ defmodule Suxuri.User do
 
   defstruct [:id, :name, :display_name, :avatar_url, :profile]
 
-  def new(%{"id" => id, "name" => name, "displayName" => display_name,
-            "avatarUrl" => avatar_url, "profile" => profile}) do
+  def new(user = %{"id" => id, "name" => name, "displayName" => display_name,
+            "avatarUrl" => avatar_url}) do
+    profile = Map.get(user, "profile", [])
     %__MODULE__{id: id, name: name, display_name: display_name,
                 avatar_url: avatar_url, profile: Profile.new(profile)}
-  end
-
-  def new(%{"id" => id, "name" => name, "displayName" => display_name,
-            "avatarUrl" => avatar_url}) do
-    %__MODULE__{id: id, name: name, display_name: display_name,
-                avatar_url: avatar_url, profile: nil}
   end
 
   def get(user_id) do
