@@ -1,4 +1,8 @@
 defmodule Suxuri.Item do
+  @moduledoc ~S"""
+  Item is kind of products which is made in suzuri like t-shirt, mug and so on.
+  """
+
   alias Suxuri.HTTP
 
   defmodule Variant do

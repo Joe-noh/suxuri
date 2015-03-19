@@ -1,4 +1,10 @@
 defmodule Suxuri.Material do
+  @moduledoc ~S"""
+  Material is a thing needed for making a product. An image is required to
+  create a material. This module includes functions for create, update and
+  delete materials.
+  """
+
   alias Suxuri.HTTP
   alias Suxuri.User
   alias Suxuri.Product

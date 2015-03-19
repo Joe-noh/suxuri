@@ -1,4 +1,9 @@
 defmodule Suxuri.Choice do
+  @moduledoc ~S"""
+  Choice is a collection of products. This module provides CRUD interface
+  functions for choices and struct builder functions.
+  """
+
   alias Suxuri.HTTP
   alias Suxuri.User
 

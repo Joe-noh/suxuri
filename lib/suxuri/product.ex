@@ -1,4 +1,9 @@
 defmodule Suxuri.Product do
+  @moduledoc ~S"""
+  Product is things you can buy at suzuri. This module provides GET functions,
+  favorite function and struct builder functions.
+  """
+
   alias Suxuri.HTTP
   alias Suxuri.Item
   alias Suxuri.Favorite
