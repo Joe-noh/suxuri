@@ -8,18 +8,22 @@ defmodule Suxuri.HTTP do
 
   @base_url "https://suzuri.jp/api/v1"
 
+  @spec get!(String.t, Keyword.t) :: Map.t
   def get!(path, params \\ []) do
     full(path) |> H.get!(headers, params: params) |> process_response!
   end
 
+  @spec post!(String.t, Keyword.t) :: Map.t
   def post!(path, params \\ []) do
     full(path) |> H.post!(JSX.encode!(params), headers) |> process_response!
   end
 
+  @spec put!(String.t, Keyword.t) :: Map.t
   def put!(path, params \\ []) do
     full(path) |> H.put!(JSX.encode!(params), headers) |> process_response!
   end
 
+  @spec delete!(String.t) :: Map.t
   def delete!(path) do
     full(path) |> H.delete!(headers) |> process_response!
   end
@@ -35,7 +39,7 @@ defmodule Suxuri.HTTP do
   defp full(       path), do: @base_url <> "/" <> path
 
   @doc false
-  @spec process_response!(%HTTPoison.Response{}) :: map | no_return
+  @spec process_response!(%HTTPoison.Response{}) :: Map.t | no_return
   defp process_response!(%H.Response{status_code: 200, body: body}) do
     JSX.decode!(body)
   end

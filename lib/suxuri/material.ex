@@ -16,6 +16,9 @@ defmodule Suxuri.Material do
     :user
   ]
 
+  @type t :: %__MODULE__{}
+
+  @spec new(Map.t) :: t
   def new(%{"id" => id, "title" => title, "description" => description,
             "price" => price, "textureUrl" => texture_url, "violation" => violation,
             "published" => published, "publishedAt" => published_at,
@@ -29,6 +32,7 @@ defmodule Suxuri.Material do
                 original_height: original_height, user: User.new(user)}
   end
 
+  @spec create(String.t, String.t, Keyword.t) :: t
   def create(title, texture, params \\ []) do
     base = [title: title, texture: texture]
 
@@ -36,6 +40,7 @@ defmodule Suxuri.Material do
     |> new_material_and_products
   end
 
+  @spec update(pos_integer | t, Keyword.t) :: t
   def update(material, params \\ [])
   def update(material_id, params) when is_integer(material_id) do
     do_update(material_id, params)
@@ -48,6 +53,7 @@ defmodule Suxuri.Material do
     HTTP.put!("/materials/#{material_id}", params) |> new_material_and_products
   end
 
+  @spec delete(pos_integer | t) :: %{}
   def delete(material_id) when is_integer(material_id) do
     do_delete(material_id)
   end

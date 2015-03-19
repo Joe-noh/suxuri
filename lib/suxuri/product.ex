@@ -15,6 +15,9 @@ defmodule Suxuri.Product do
     :resize_mode, :item, :material, :item_variants, :sample_item_variant
   ]
 
+  @type t :: %__MODULE__{}
+
+  @spec new(Map.t) :: t
   def new(product = %{"id" => id, "title" => title, "published" => published,
             "publishedAt" => published_at, "createdAt" => created_at,
             "updatedAt" => updated_at, "exemplaryAngle" => examplary_angle,
@@ -32,6 +35,7 @@ defmodule Suxuri.Product do
                 sample_item_variant: Item.Variant.new(sample_item_variant)}
   end
 
+  @spec from_list([Map.t]) :: [t]
   def from_list(products) when is_list(products) do
     from_list(products, [])
   end
@@ -39,14 +43,17 @@ defmodule Suxuri.Product do
   defp from_list([head | rest], acc), do: from_list(rest, [new(head) | acc])
   defp from_list([], acc), do: Enum.reverse acc
 
+  @spec get(pos_integer) :: t
   def get(product_id) when is_integer(product_id) do
     HTTP.get!("/products/#{product_id}") |> new_product
   end
 
+  @spec list(Keyword.t) :: [t]
   def list(params \\ []) do
     HTTP.get!("/products", params) |> Map.get("products") |> from_list
   end
 
+  @spec favorite(pos_integer | t) :: Favorite.t
   def favorite(product_id) when is_integer(product_id) do
     HTTP.post!("/products/#{product_id}/favorites", %{})
     |> Map.get("favorite")

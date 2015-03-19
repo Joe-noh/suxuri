@@ -8,6 +8,9 @@ defmodule Suxuri.Favorite do
 
   defstruct [:id, :count, :user]
 
+  @type t :: %__MODULE__{}
+
+  @spec new(Map.t) :: t
   def new(%{"id" => id, "count" => count, "user" => user}) do
     %__MODULE__{id: id, count: count, user: User.new(user)}
   end
