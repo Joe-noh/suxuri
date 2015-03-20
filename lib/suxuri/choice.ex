@@ -85,7 +85,7 @@ defmodule Suxuri.Choice do
 
       iex> Suxuri.Choice.get(1149) |> Suxuri.Choice.delete
   """
-  @spec delete(pos_integer | t) :: %{}
+  @spec delete(pos_integer | t) :: :ok
   def delete(choice_id) when is_integer(choice_id) do
     do_delete(choice_id)
   end
@@ -93,7 +93,7 @@ defmodule Suxuri.Choice do
     do_delete(choice.id)
   end
 
-  @spec do_delete(pos_integer) :: %{}
+  @spec do_delete(pos_integer) :: :ok
   defp do_delete(choice_id) do
     HTTP.delete!("/choices/#{choice_id}")
   end
