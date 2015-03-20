@@ -59,6 +59,27 @@ defmodule Suxuri.Material do
   end
 
   @doc """
+  Create new material and a t-shirt from text.
+
+  ## Example
+
+      iex> Suxuri.Material.create_from_text "Yes, I'm an Ninja", [
+        item_variant_id: 151
+      ]
+      %{
+        "material" => %Suxuri.Material{...},
+        "products" => [%Suxuri.Product{...}]
+      }
+  """
+  @spec create_from_text(String.t, Keyword.t) :: t
+  def create_from_text(text, params \\ []) do
+    base = [text: text]
+
+    HTTP.post!("/materials/text", Keyword.merge(base, params))
+    |> new_material_and_products
+  end
+
+  @doc """
   Update a material and related products.
 
   ## Example
