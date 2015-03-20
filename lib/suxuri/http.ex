@@ -39,14 +39,12 @@ defmodule Suxuri.HTTP do
   defp full(       path), do: @base_url <> "/" <> path
 
   @doc false
-  @spec process_response!(%HTTPoison.Response{}) :: Map.t | no_return
+  @spec process_response!(%HTTPoison.Response{}) :: Map.t | :ok | no_return
   defp process_response!(%H.Response{status_code: 200, body: body}) do
     JSX.decode!(body)
   end
 
-  defp process_response!(%H.Response{status_code: 204}) do
-    %{}
-  end
+  defp process_response!(%H.Response{status_code: 204}), do: :ok
 
   defp process_response!(%H.Response{status_code: code, body: body}) do
     raise RuntimeError, message: """

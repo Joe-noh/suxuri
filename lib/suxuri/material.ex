@@ -85,7 +85,7 @@ defmodule Suxuri.Material do
 
       iex> Suxuri.Material.delete 180226
   """
-  @spec delete(pos_integer | t) :: %{}
+  @spec delete(pos_integer | t) :: :ok
   def delete(material_id) when is_integer(material_id) do
     do_delete(material_id)
   end
