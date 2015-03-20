@@ -72,6 +72,14 @@ defmodule Suxuri.Item do
   defp from_list([head | rest], acc), do: from_list(rest, [new(head) | acc])
   defp from_list([], acc), do: Enum.reverse acc
 
+  @doc """
+  Fetch and list all items
+
+  ## Example
+
+      iex> Suxuri.Item.list
+      [%Suxuri.Item{...}, %Suxuri.Item{...}, ...]
+  """
   @spec list :: [t]
   def list do
     HTTP.get!("/items") |> Map.get("items") |> from_list
