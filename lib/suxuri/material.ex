@@ -32,6 +32,24 @@ defmodule Suxuri.Material do
                 original_height: original_height, user: User.new(user)}
   end
 
+  @doc """
+  Create new material. Currently public images which have permalink are supported.
+
+  ## Example
+
+      iex> Suxuri.Material.create "しゃつ", "http://example.com/my_image.png", [
+        products: [
+          [item_id: 1,
+           exemplary_item_variant_id: 151,
+           published: true,
+           resize_mode: :contain]
+        ]
+      ]
+      %{
+        "material" => %Suxuri.Material{...},
+        "products" => [%Suxuri.Product{...}, %Suxuri.Product{...}, ...]
+      }
+  """
   @spec create(String.t, String.t, Keyword.t) :: t
   def create(title, texture, params \\ []) do
     base = [title: title, texture: texture]
@@ -40,6 +58,13 @@ defmodule Suxuri.Material do
     |> new_material_and_products
   end
 
+  @doc """
+  Update a material and related products.
+
+  ## Example
+
+      iex> Suxuri.Material.update 180226, title: "しゃしゃしゃ"
+  """
   @spec update(pos_integer | t, Keyword.t) :: t
   def update(material, params \\ [])
   def update(material_id, params) when is_integer(material_id) do
@@ -53,6 +78,13 @@ defmodule Suxuri.Material do
     HTTP.put!("/materials/#{material_id}", params) |> new_material_and_products
   end
 
+  @doc """
+  Delete a material and related products.
+
+  ## Example
+
+      iex> Suxuri.Material.delete 180226
+  """
   @spec delete(pos_integer | t) :: %{}
   def delete(material_id) when is_integer(material_id) do
     do_delete(material_id)
