@@ -53,15 +53,11 @@ defmodule Suxuri.Item do
   @type t :: %__MODULE__{}
 
   @spec new(Map.t) :: t
-  def new(%{"id" => id, "name" => name, "angles" => angles,
-            "humanizeName" => humanize_name, "variants" => variants}) do
+  def new(item = %{"id" => id, "name" => name, "angles" => angles,
+                   "humanizeName" => humanize_name}) do
+    variants = Map.get(item, "variants")
     %__MODULE__{id: id, name: name, angles: angles, humanize_name: humanize_name,
                 variants: Variant.from_list(variants)}
-  end
-
-  def new(%{"id" => id, "name" => name, "angles" => angles,
-            "humanizeName" => humanize_name}) do
-    %__MODULE__{id: id, name: name, angles: angles, humanize_name: humanize_name}
   end
 
   @spec from_list([Map.t]) :: [t]
