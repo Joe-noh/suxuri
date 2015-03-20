@@ -43,6 +43,7 @@ defmodule Suxuri.Item do
     def from_list(variants) when is_list(variants) do
       from_list(variants, [])
     end
+    def from_list(_), do: []
 
     defp from_list([head | rest], acc), do: from_list(rest, [new(head) | acc])
     defp from_list([], acc), do: Enum.reverse acc
