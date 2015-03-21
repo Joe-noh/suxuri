@@ -7,8 +7,15 @@ defmodule Suxuri.Choice do
   alias Suxuri.HTTP
   alias Suxuri.User
 
-  defstruct [id: nil, title: "", description: "", secret: false,
-             banner_url: "", products_count: 0, user: nil]
+  defstruct [
+    id:             nil,
+    title:          "",
+    description:    "",
+    secret:         false,
+    banner_url:     "",
+    products_count: 0,
+    user:           nil
+  ]
 
   @type t :: %__MODULE__{id: pos_integer}
 
