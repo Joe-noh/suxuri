@@ -163,3 +163,26 @@ defmodule Suxuri.Choice do
 
   defp new_choice(%{"choice" => choice}), do: new(choice)
 end
+
+defimpl Inspect, for: Suxuri.Choice do
+  import Inspect.Algebra
+
+  def inspect(choice = %Suxuri.Choice{products_count: count}, opts) do
+    surround_many(
+      "#Suxuri.Choice(#{count})<",
+      take(choice, [:title, :description, :user]),
+      ">",
+      opts,
+      &to_s/2
+    )
+  end
+
+  defp take(struct, keys), do: do_take(struct, keys, [])
+
+  defp do_take(_struct, [], acc), do: Enum.reverse acc
+  defp do_take(struct, [key | keys], acc) do
+    do_take(struct, keys, [{key, Map.get(struct, key)} | acc])
+  end
+
+  defp to_s({key, val}, opts), do: "#{key}: #{to_doc val, opts}"
+end
