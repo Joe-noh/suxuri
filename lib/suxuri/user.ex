@@ -6,7 +6,11 @@ defmodule Suxuri.User do
   alias Suxuri.HTTP
 
   defmodule Profile do
-    defstruct [:url, :body, :header_url]
+    defstruct [
+      url:        "",
+      body:       "",
+      header_url: ""
+    ]
 
     @type t :: %__MODULE__{}
 
@@ -18,7 +22,13 @@ defmodule Suxuri.User do
     def new(_), do: nil
   end
 
-  defstruct [:id, :name, :display_name, :avatar_url, :profile]
+  defstruct [
+    id:           nil,
+    name:         "",
+    display_name: "",
+    avatar_url:   "",
+    profile:      nil
+  ]
 
   @type t :: %__MODULE__{}
 

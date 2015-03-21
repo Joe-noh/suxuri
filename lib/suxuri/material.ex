@@ -11,9 +11,19 @@ defmodule Suxuri.Material do
   alias Suxuri.Material
 
   defstruct [
-    :id, :title, :description, :price, :texture_url, :violation, :published,
-    :published_at, :uploaded_at, :dominant_rgb, :original_width, :original_height,
-    :user
+    id:              nil,
+    title:           "",
+    description:     "",
+    price:           0,
+    texture_url:     "",
+    violation:       false,
+    published:       true,
+    published_at:    "",
+    uploaded_at:     "",
+    dominant_rgb:    nil,
+    original_width:  0,
+    original_height: 0,
+    user:            nil
   ]
 
   @type t :: %__MODULE__{}

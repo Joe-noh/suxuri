@@ -10,9 +10,22 @@ defmodule Suxuri.Product do
   alias Suxuri.Material
 
   defstruct [
-    :id, :title, :published, :published_at, :created_at, :updated_at,
-    :examplary_angle, :image_url, :sample_image_url, :url, :sample_url,
-    :resize_mode, :item, :material, :item_variants, :sample_item_variant
+    id:                  nil,
+    title:               "",
+    published:           true,
+    published_at:        "",
+    created_at:          "",
+    updated_at:          "",
+    examplary_angle:     nil,
+    image_url:           "",
+    sample_image_url:    "",
+    url:                 "",
+    sample_url:          "",
+    resize_mode:         nil,
+    item:                nil,
+    material:            nil,
+    item_variants:       [],
+    sample_item_variant: nil
   ]
 
   @type t :: %__MODULE__{}

@@ -6,7 +6,11 @@ defmodule Suxuri.Favorite do
 
   alias Suxuri.User
 
-  defstruct [:id, :count, :user]
+  defstruct [
+    id:    nil,
+    count: 0,
+    user:  nil
+  ]
 
   @type t :: %__MODULE__{}
 

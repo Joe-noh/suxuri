@@ -7,7 +7,11 @@ defmodule Suxuri.Item do
 
   defmodule Variant do
     defmodule Color do
-      defstruct [:id, :name, :rgb]
+      defstruct [
+        id:   nil,
+        name: "white",
+        rgb:  nil
+      ]
 
       @type t :: %__MODULE__{}
 
@@ -18,7 +22,10 @@ defmodule Suxuri.Item do
     end
 
     defmodule Size do
-      defstruct [:id, :name]
+      defstruct [
+        id:   nil,
+        name: "m"
+      ]
 
       @type t :: %__MODULE__{}
 
@@ -28,7 +35,14 @@ defmodule Suxuri.Item do
       end
     end
 
-    defstruct [:id, :price, :exemplary, :color, :size, :enabled]
+    defstruct [
+      id:        nil,
+      price:     0,
+      exemplary: false,
+      color:     nil,
+      size:      nil,
+      enabled:   true
+    ]
 
     @type t :: %__MODULE__{}
 
@@ -49,7 +63,13 @@ defmodule Suxuri.Item do
     defp from_list([], acc), do: Enum.reverse acc
   end
 
-  defstruct [:id, :name, :angles, :humanize_name, :variants]
+  defstruct [
+    id:            nil,
+    name:          "",
+    angles:        [],
+    humanize_name: "",
+    variants:      []
+  ]
 
   @type t :: %__MODULE__{}
 
