@@ -112,3 +112,15 @@ defmodule Suxuri.User do
   @spec new_user(Map.t) :: t
   defp new_user(%{"user" => user}), do: new(user)
 end
+
+defimpl Inspect, for: Suxuri.User.Profile do
+  def inspect(profile, opts) do
+    Suxuri.Inspector.inspect(profile, [:body, :url], opts)
+  end
+end
+
+defimpl Inspect, for: Suxuri.User do
+  def inspect(user, opts) do
+    Suxuri.Inspector.inspect(user, [:name, :display_name, :profile], opts)
+  end
+end

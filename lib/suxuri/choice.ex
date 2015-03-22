@@ -176,6 +176,6 @@ defimpl Inspect, for: Suxuri.Choice do
   alias Suxuri.Inspector
 
   def inspect(choice, opts) do
-    Inspector.inspect(choice, :products_count, [:title, :description, :user], opts)
+    Inspector.inspect(choice, :products_count, [:id, :title, :description, :user], opts)
   end
 end

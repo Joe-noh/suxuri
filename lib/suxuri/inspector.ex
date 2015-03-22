@@ -28,5 +28,5 @@ defmodule Suxuri.Inspector do
     do_take(struct, keys, [{key, Map.get(struct, key)} | acc])
   end
 
-  defp to_s({key, val}, opts), do: "#{key}: #{to_doc val, opts}"
+  defp to_s({key, val}, _opts), do: "#{key}: #{inspect val}"
 end

@@ -132,3 +132,9 @@ defmodule Suxuri.Material do
     %{"material" => Material.new(material), "products" => Product.from_list(products)}
   end
 end
+
+defimpl Inspect, for: Suxuri.Material do
+  def inspect(material, opts) do
+    Suxuri.Inspector.inspect(material, [:id, :title, :description, :price, :user], opts)
+  end
+end

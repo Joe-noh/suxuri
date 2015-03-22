@@ -102,3 +102,27 @@ defmodule Suxuri.Item do
     HTTP.get!("/items") |> Map.get("items") |> from_list
   end
 end
+
+defimpl Inspect, for: Suxuri.Item.Variant.Color do
+  def inspect(color, opts) do
+    Suxuri.Inspector.inspect(color, [:name, :rgb], opts)
+  end
+end
+
+defimpl Inspect, for: Suxuri.Item.Variant.Size do
+  def inspect(size, opts) do
+    Suxuri.Inspector.inspect(size, [:name], opts)
+  end
+end
+
+defimpl Inspect, for: Suxuri.Item.Variant do
+  def inspect(variant, opts) do
+    Suxuri.Inspector.inspect(variant, [:id, :price, :color, :size], opts)
+  end
+end
+
+defimpl Inspect, for: Suxuri.Item do
+  def inspect(item, opts) do
+    Suxuri.Inspector.inspect(item, [:id, :humanize_name], opts)
+  end
+end

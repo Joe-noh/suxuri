@@ -116,3 +116,9 @@ defmodule Suxuri.Product do
 
   defp new_product(%{"product" => product}), do: new(product)
 end
+
+defimpl Inspect, for: Suxuri.Product do
+  def inspect(product, opts) do
+    Suxuri.Inspector.inspect(product, [:id, :title, :item, :material], opts)
+  end
+end
