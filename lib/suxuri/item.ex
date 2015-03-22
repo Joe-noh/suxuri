@@ -7,7 +7,11 @@ defmodule Suxuri.Item do
 
   defmodule Variant do
     defmodule Color do
-      defstruct [:id, :name, :rgb]
+      defstruct [
+        id:   nil,
+        name: "white",
+        rgb:  nil
+      ]
 
       @type t :: %__MODULE__{}
 
@@ -18,7 +22,10 @@ defmodule Suxuri.Item do
     end
 
     defmodule Size do
-      defstruct [:id, :name]
+      defstruct [
+        id:   nil,
+        name: "m"
+      ]
 
       @type t :: %__MODULE__{}
 
@@ -28,7 +35,14 @@ defmodule Suxuri.Item do
       end
     end
 
-    defstruct [:id, :price, :exemplary, :color, :size, :enabled]
+    defstruct [
+      id:        nil,
+      price:     0,
+      exemplary: false,
+      color:     nil,
+      size:      nil,
+      enabled:   true
+    ]
 
     @type t :: %__MODULE__{}
 
@@ -49,7 +63,13 @@ defmodule Suxuri.Item do
     defp from_list([], acc), do: Enum.reverse acc
   end
 
-  defstruct [:id, :name, :angles, :humanize_name, :variants]
+  defstruct [
+    id:            nil,
+    name:          "",
+    angles:        [],
+    humanize_name: "",
+    variants:      []
+  ]
 
   @type t :: %__MODULE__{}
 
@@ -80,5 +100,29 @@ defmodule Suxuri.Item do
   @spec list :: [t]
   def list do
     HTTP.get!("/items") |> Map.get("items") |> from_list
+  end
+end
+
+defimpl Inspect, for: Suxuri.Item.Variant.Color do
+  def inspect(color, opts) do
+    Suxuri.Inspector.inspect(color, [:name, :rgb], opts)
+  end
+end
+
+defimpl Inspect, for: Suxuri.Item.Variant.Size do
+  def inspect(size, opts) do
+    Suxuri.Inspector.inspect(size, [:name], opts)
+  end
+end
+
+defimpl Inspect, for: Suxuri.Item.Variant do
+  def inspect(variant, opts) do
+    Suxuri.Inspector.inspect(variant, [:id, :price, :color, :size], opts)
+  end
+end
+
+defimpl Inspect, for: Suxuri.Item do
+  def inspect(item, opts) do
+    Suxuri.Inspector.inspect(item, [:id, :humanize_name], opts)
   end
 end

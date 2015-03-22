@@ -6,7 +6,11 @@ defmodule Suxuri.User do
   alias Suxuri.HTTP
 
   defmodule Profile do
-    defstruct [:url, :body, :header_url]
+    defstruct [
+      url:        "",
+      body:       "",
+      header_url: ""
+    ]
 
     @type t :: %__MODULE__{}
 
@@ -18,7 +22,13 @@ defmodule Suxuri.User do
     def new(_), do: nil
   end
 
-  defstruct [:id, :name, :display_name, :avatar_url, :profile]
+  defstruct [
+    id:           nil,
+    name:         "",
+    display_name: "",
+    avatar_url:   "",
+    profile:      nil
+  ]
 
   @type t :: %__MODULE__{}
 
@@ -101,4 +111,16 @@ defmodule Suxuri.User do
   @doc false
   @spec new_user(Map.t) :: t
   defp new_user(%{"user" => user}), do: new(user)
+end
+
+defimpl Inspect, for: Suxuri.User.Profile do
+  def inspect(profile, opts) do
+    Suxuri.Inspector.inspect(profile, [:body, :url], opts)
+  end
+end
+
+defimpl Inspect, for: Suxuri.User do
+  def inspect(user, opts) do
+    Suxuri.Inspector.inspect(user, [:name, :display_name, :profile], opts)
+  end
 end

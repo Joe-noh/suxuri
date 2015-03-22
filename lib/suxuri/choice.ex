@@ -7,7 +7,15 @@ defmodule Suxuri.Choice do
   alias Suxuri.HTTP
   alias Suxuri.User
 
-  defstruct [:id, :title, :description, :secret, :banner_url, :products_count, :user]
+  defstruct [
+    id:             nil,
+    title:          "",
+    description:    "",
+    secret:         false,
+    banner_url:     "",
+    products_count: 0,
+    user:           nil
+  ]
 
   @type t :: %__MODULE__{id: pos_integer}
 
@@ -162,4 +170,12 @@ defmodule Suxuri.Choice do
   end
 
   defp new_choice(%{"choice" => choice}), do: new(choice)
+end
+
+defimpl Inspect, for: Suxuri.Choice do
+  alias Suxuri.Inspector
+
+  def inspect(choice, opts) do
+    Inspector.inspect(choice, :products_count, [:id, :title, :description, :user], opts)
+  end
 end

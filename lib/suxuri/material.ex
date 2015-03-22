@@ -11,9 +11,19 @@ defmodule Suxuri.Material do
   alias Suxuri.Material
 
   defstruct [
-    :id, :title, :description, :price, :texture_url, :violation, :published,
-    :published_at, :uploaded_at, :dominant_rgb, :original_width, :original_height,
-    :user
+    id:              nil,
+    title:           "",
+    description:     "",
+    price:           0,
+    texture_url:     "",
+    violation:       false,
+    published:       true,
+    published_at:    "",
+    uploaded_at:     "",
+    dominant_rgb:    nil,
+    original_width:  0,
+    original_height: 0,
+    user:            nil
   ]
 
   @type t :: %__MODULE__{}
@@ -120,5 +130,11 @@ defmodule Suxuri.Material do
 
   defp new_material_and_products(%{"material" => material, "products" => products}) do
     %{"material" => Material.new(material), "products" => Product.from_list(products)}
+  end
+end
+
+defimpl Inspect, for: Suxuri.Material do
+  def inspect(material, opts) do
+    Suxuri.Inspector.inspect(material, [:id, :title, :description, :price, :user], opts)
   end
 end
