@@ -19,3 +19,9 @@ defmodule Suxuri.Favorite do
     %__MODULE__{id: id, count: count, user: User.new(user)}
   end
 end
+
+defimpl Inspect, for: Suxuri.Favorite do
+  def inspect(favorite, opts) do
+    Suxuri.Inspector.inspect(favorite, :count, [:user], opts)
+  end
+end
